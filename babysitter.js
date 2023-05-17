@@ -28,18 +28,23 @@ const arrival = 17
 const departure = 4
 const bedtime = 21
 
+// Gets the hourly rate from the time provided,
+// bedtime optional, defaults to 9pm
 const getRateForTime = (time, bedtime=21) => {
 	if (time >= 17 && time < bedtime) return 12
 	else if (time >= bedtime && time < 24) return 8
 	else if (time <= 4) return 16
 }
 
+// Gets the pay for rate and hours provided
+// end time is optional, defaults to null
 const calculateRateForHours = (rate, start, end=null) => {
 	let hours = start
 	if (end) hours = end - start
 	return hours * rate
 }
 
+// Calculates the overall rate for times provided
 const calculateFinalRate = (arrival, departure, bedtime) => {
 	const r1 = calculateRateForHours(getRateForTime(arrival, bedtime), arrival, bedtime)
 	const r2 = calculateRateForHours(getRateForTime(bedtime, bedtime), bedtime, 24)
@@ -49,7 +54,6 @@ const calculateFinalRate = (arrival, departure, bedtime) => {
 }
 
 const finalRate = calculateFinalRate(arrival, departure, bedtime)
-
 console.log(finalRate)
 
 module.exports = {
